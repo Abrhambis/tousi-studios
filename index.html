@@ -112,6 +112,91 @@ section{position:relative}
 .hbw b{display:inline-block;font:inherit;white-space:pre;will-change:transform,opacity}
 @media(max-width:760px){.hbw{font-size:16.5px;transform:translate(calc(-50% + var(--mx) * 1vw),calc(-50% + var(--my) * 1vh))}}
 
+
+/* Readiness check: entry section */
+.check{padding:clamp(80px,12vh,140px) 0}
+.check-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(40px,6vw,100px);align-items:center}
+.check h2{max-width:16ch}
+.check .lede{margin-top:clamp(20px,3vh,30px);max-width:42ch}
+.check-art{justify-self:center;width:min(340px,100%)}
+.cring{display:block;width:100%;height:auto;overflow:visible}
+.cring .trk{fill:none;stroke:rgba(217,197,174,.16);stroke-width:1;vector-effect:non-scaling-stroke}
+.cring .arc{fill:none;stroke:var(--gold);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1 1;stroke-dashoffset:1}
+.cring.idle .arc{animation:arcIdle 7s cubic-bezier(.65,0,.35,1) infinite;animation-delay:calc(var(--k) * .32s)}
+@keyframes arcIdle{0%{stroke-dashoffset:1}28%,62%{stroke-dashoffset:var(--to,.35)}90%,100%{stroke-dashoffset:1}}
+.cring.idle .arc:nth-child(4n+2){--to:.1}.cring.idle .arc:nth-child(4n){--to:.5}.cring.idle .arc:nth-child(6n){--to:0}
+html.still .cring.idle .arc{animation-play-state:paused}
+@media(max-width:860px){.check-grid{grid-template-columns:1fr}.check-art{width:min(240px,70%);order:-1;justify-self:start}}
+
+/* Readiness check: dialog */
+dialog.rc{max-width:none;max-height:none;width:100%;height:100%;margin:0;inset:0;padding:0;border:0;background:radial-gradient(120% 90% at 70% 10%,#08323c,var(--deep) 62%);color:var(--ink);display:none;grid-template-rows:auto 1fr auto;overflow:hidden}
+dialog.rc[open]{display:grid;animation:rcIn .7s var(--ease) both}
+dialog.rc::backdrop{background:var(--deep)}
+@keyframes rcIn{from{opacity:0}to{opacity:1}}
+.rc-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;padding:22px max(5vw,22px)}
+.rc-name{margin:0;font:400 italic 18px var(--serif);color:var(--sand)}
+.rc-prog{list-style:none;margin:0;padding:0;display:flex;gap:6px}
+.rc-prog li{width:clamp(18px,3vw,34px);height:2px;background:rgba(217,197,174,.18);position:relative;overflow:hidden}
+.rc-prog li::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.rc-prog li.done::after{transform:none}
+.rc-x{justify-self:end;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;background:none;cursor:pointer;position:relative;transition:border-color .4s,transform .6s var(--ease)}
+.rc-x span{position:absolute;left:14px;right:14px;top:50%;height:1px;background:var(--ink);transform:rotate(45deg)}
+.rc-x span+span{transform:rotate(-45deg)}
+.rc-x:hover{border-color:var(--sand);transform:rotate(90deg)}
+.rc-body{overflow-y:auto;overscroll-behavior:contain;display:grid;padding:0 max(5vw,22px)}
+.rc-view{align-self:center;width:min(820px,100%);margin:0 auto;padding:clamp(8px,3vh,40px) 0}
+.rc.result .rc-view{width:min(980px,100%)}
+.rc-view>*{transition:opacity .45s var(--ease),transform .6s var(--ease)}
+.rc-view.out>*{opacity:0;transform:translateY(-14px)}
+.rc-view.pre>*{opacity:0;transform:translateY(18px);transition:none}
+.rc-n{margin:0 0 18px;font:400 italic 17px var(--serif);color:var(--sand)}
+.rc-rq{font-size:clamp(28px,2.6vw,38px)!important;margin-bottom:14px!important;max-width:20ch!important}
+.rc-q{margin:0 0 clamp(26px,5vh,44px);font:400 clamp(28px,3.4vw,48px)/1.12 var(--serif);letter-spacing:-.01em;color:var(--ink);max-width:22ch;outline:none}
+.rc-opts{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.rc-opts li{border-bottom:1px solid var(--line)}
+.rc-opt{width:100%;display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:14px;text-align:left;background:none;border:0;color:var(--ink);padding:clamp(16px,2.4vh,22px) 4px;font:400 clamp(16px,1.25vw,19px)/1.4 var(--sans);cursor:pointer;position:relative}
+.rc-opt::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
+.rc-opt:hover::after,.rc-opt:focus-visible::after,.rc-opt[aria-pressed=true]::after{transform:none}
+.rc-opt .k{font:400 italic 16px var(--serif);color:var(--sand)}
+.rc-opt .dot{width:9px;height:9px;border-radius:50%;border:1px solid var(--line);transition:background .4s,border-color .4s}
+.rc-opt[aria-pressed=true] .dot{background:var(--gold);border-color:var(--gold)}
+.rc-opt:focus-visible{outline:none}
+.rc-foot{display:flex;justify-content:space-between;align-items:center;padding:18px max(5vw,22px) 24px}
+.rc-back{font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--sand)}
+.rc-back[hidden]{display:block;visibility:hidden}
+.rc-hint{margin:0;font-size:13px;color:var(--mute)}
+@media(hover:none){.rc-hint{display:none}}
+.rc.result .rc-foot{display:none}
+/* result */
+.rc-res{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,80px);align-items:start}
+.rc-dial{position:relative;width:min(300px,100%)}
+.rc-dial .cring .arc{transition:stroke-dashoffset 1.6s cubic-bezier(.65,0,.25,1);transition-delay:calc(.3s + var(--k) * .12s)}
+.rc-dial .mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.rc-dial .mid b{font:400 clamp(26px,2.6vw,36px)/1 var(--serif);color:var(--ink)}
+.rc-dial .mid i{margin-top:8px;font:400 italic 15px var(--serif);color:var(--sand)}
+.rc-legend{list-style:none;margin:26px 0 0;padding:0;width:min(300px,100%)}
+.rc-legend li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--mute)}
+.rc-legend li span:last-child{font:400 italic 15px var(--serif);color:var(--sand)}
+.rc-legend li.focus{color:var(--ink)}
+.rc-legend li.focus span:first-child::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin:0 10px 2px 0}
+.rc-res h3{margin:0 0 14px;font:400 clamp(28px,2.6vw,38px)/1.12 var(--serif);letter-spacing:-.01em;max-width:20ch}
+.rc-res .sum{color:var(--mute);font-size:clamp(16px,1.2vw,18px);max-width:46ch;margin:0}
+.rc-start{margin:clamp(20px,3vh,30px) 0 0;padding:0;list-style:none}
+.rc-start li{padding:14px 0;border-top:1px solid var(--line)}
+.rc-start h4{margin:0 0 4px;font:400 italic 19px var(--serif);color:var(--sand)}
+.rc-start p{margin:0;font-size:15px;color:var(--mute);max-width:52ch}
+.rc-help{margin:0;padding-top:14px;border-top:1px solid var(--line);font-size:15px;color:var(--ink)}
+.rc-acts{display:flex;flex-wrap:wrap;align-items:center;gap:18px 34px;margin-top:8px}
+.rc-acts .send{margin-top:14px}
+.rc-note{margin:14px 0 0;font-size:12.5px;color:var(--mute)}
+@media(max-width:860px){
+  .rc-top{grid-template-columns:1fr auto;padding:16px 20px}
+  .rc-prog{grid-column:1/-1;grid-row:2;justify-content:space-between}
+  .rc-prog li{flex:1;width:auto}
+  .rc-res{grid-template-columns:1fr}
+  .rc-dial{width:min(220px,64vw)}
+}
+
 /* Header */
 header{position:fixed;inset:0 0 auto;z-index:40;transition:transform .7s var(--ease),background .5s}
 header.hide{transform:translateY(-100%)}
@@ -666,6 +751,18 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   </div>
 </section>
 
+<section class="check" id="check" aria-labelledby="checkTitle">
+  <div class="wrap check-grid">
+    <div class="check-copy">
+      <p class="chapkick fade">Readiness check</p>
+      <h2 id="checkTitle" class="split">Is your growth outpacing how you operate?</h2>
+      <p class="lede fade" style="--d:.15s">Seven questions, about two minutes. See where your operations stand for your stage, and where to start.</p>
+      <button class="send fade" style="--d:.3s" type="button" id="rcOpen"><span class="ring"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h13M9 3l5 5-5 5" fill="none" stroke="currentColor"/></svg></span>Start the check</button>
+    </div>
+    <div class="check-art fade" style="--d:.2s"><svg class="cring idle" viewBox="0 0 200 200" aria-hidden="true"><g transform="rotate(-90 100 100)"><path class="trk" d="M179.85 104.88 A80 80 0 0 1 153.60 159.38"/><path class="arc" style="--k:0" pathLength="1" d="M179.85 104.88 A80 80 0 0 1 153.60 159.38" data-k="0"/><path class="trk" d="M145.97 165.47 A80 80 0 0 1 86.99 178.94"/><path class="arc" style="--k:1" pathLength="1" d="M145.97 165.47 A80 80 0 0 1 86.99 178.94" data-k="1"/><path class="trk" d="M77.47 176.76 A80 80 0 0 1 30.18 139.05"/><path class="arc" style="--k:2" pathLength="1" d="M77.47 176.76 A80 80 0 0 1 30.18 139.05" data-k="2"/><path class="trk" d="M25.94 130.25 A80 80 0 0 1 25.94 69.75"/><path class="arc" style="--k:3" pathLength="1" d="M25.94 130.25 A80 80 0 0 1 25.94 69.75" data-k="3"/><path class="trk" d="M30.18 60.95 A80 80 0 0 1 77.47 23.24"/><path class="arc" style="--k:4" pathLength="1" d="M30.18 60.95 A80 80 0 0 1 77.47 23.24" data-k="4"/><path class="trk" d="M86.99 21.06 A80 80 0 0 1 145.97 34.53"/><path class="arc" style="--k:5" pathLength="1" d="M86.99 21.06 A80 80 0 0 1 145.97 34.53" data-k="5"/><path class="trk" d="M153.60 40.62 A80 80 0 0 1 179.85 95.12"/><path class="arc" style="--k:6" pathLength="1" d="M153.60 40.62 A80 80 0 0 1 179.85 95.12" data-k="6"/></g></svg></div>
+  </div>
+</section>
+
 <section class="momentum" id="momentum">
   <div class="wrap">
     <h2 class="split">Build momentum to fuel your bottom line.</h2>
@@ -774,7 +871,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
 <footer>
   <div class="wrap">
     <img class="mark fade" src="assets/monogram.png" alt="Tousi Studios">
-    <nav class="fnav" aria-label="Footer"><a href="#intro">What we do</a><a href="#why">When to call</a><a href="#approach">Approach</a><a href="#story">Story</a><a href="#julia">Julia</a><a href="#begin">Let's connect</a></nav>
+    <nav class="fnav" aria-label="Footer"><a href="#intro">What we do</a><a href="#why">When to call</a><a href="#check">Readiness check</a><a href="#approach">Approach</a><a href="#story">Story</a><a href="#julia">Julia</a><a href="#begin">Let's connect</a></nav>
     <div class="legal">
       <span>© 2023–2026 Tousi Studios Inc. Tousi Studios does not provide legal, tax or investment advice.</span>
       <span><button type="button" class="linkbtn" id="privOpen2">Privacy</button><button type="button" class="linkbtn" id="motionBtn" aria-pressed="false">Pause motion</button></span>
@@ -782,6 +879,20 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   </div>
 </footer>
 
+<dialog class="rc" id="rc" aria-labelledby="rcTitle">
+  <div class="rc-top">
+    <p class="rc-name" id="rcTitle">Readiness check</p>
+    <ol class="rc-prog" id="rcProg" aria-hidden="true"></ol>
+    <button type="button" class="rc-x" id="rcClose" aria-label="Close the readiness check"><span></span><span></span></button>
+  </div>
+  <div class="rc-body">
+    <div class="rc-view" id="rcView" aria-live="polite"></div>
+  </div>
+  <div class="rc-foot">
+    <button type="button" class="linkbtn rc-back" id="rcBack">Back</button>
+    <p class="rc-hint">Press 1 to 4 to answer</p>
+  </div>
+</dialog>
 <dialog id="privacy" aria-labelledby="privTitle">
   <h2 id="privTitle">Privacy notice</h2>
   <p>Tousi Studios Inc. collects only what you choose to share through this site: your name, email, phone number if given, the topics you select and your message.</p>
@@ -871,6 +982,131 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     try { sessionStorage.setItem('tousi-seen','1'); } catch(e) {}
   };
 
+
+  // Readiness check
+  (() => {
+    const STAGES = [
+      ['seed', 'Seed or pre-seed', 'Seed', 7],
+      ['a', 'Series A', 'Series A', 11],
+      ['scale', 'Series B and beyond', 'Scale stage', 15],
+      ['inv', 'I’m an investor looking at a portfolio company', 'Portfolio company', 12]
+    ];
+    const LEVELS = ['Fragile', 'Emerging', 'Established', 'Scalable'];
+    const DIMS = [
+      ['Decision-making', 'When an important decision needs making, where does it go?',
+        ['Almost everything waits for the founder', 'Leaders decide in their area; bigger calls escalate informally', 'Clear owners, with an agreed path for escalation', 'Decision rights are written down and revisited as we grow'],
+        'Map who decides what, and move routine calls away from the founder. Clear decision rights are usually the fastest way to unblock a growing team.'],
+      ['Operating rhythm', 'How does the leadership team run its week?',
+        ['Reactively: whatever is on fire sets the agenda', 'We meet regularly, but meetings rarely change what happens', 'A weekly rhythm built around shared priorities', 'A set cadence of weekly, monthly and quarterly reviews tied to goals'],
+        'Set a simple operating cadence: weekly priorities, a monthly business review and quarterly goals. A steady rhythm turns effort into momentum.'],
+      ['Reporting and metrics', 'If an investor asked for the key numbers tomorrow, what would happen?',
+        ['We would scramble to pull it together', 'We would get there, mostly by hand', 'A monthly pack exists and most people trust it', 'One source of truth, ready on any given day'],
+        'Agree on the handful of metrics that matter, then build one trusted monthly pack. Investor-ready reporting also sharpens decisions inside the company.'],
+      ['Team and structure', 'How is the team keeping up with growth?',
+        ['We hire when it hurts and define roles as we go', 'There is a hiring plan, but roles and reporting lines blur', 'Roles are clear and onboarding mostly works', 'The org plan runs ahead of growth, with leaders who own their teams'],
+        'Design the next version of the organization before you need it: clear roles, reporting lines and the leaders to run them.'],
+      ['Processes and systems', 'If volume doubled next quarter, what would break?',
+        ['Most things: we rely on heroics', 'Key processes live in a few people’s heads', 'Core processes are documented, with a few gaps', 'Processes and tools are built to scale'],
+        'Document the few processes that carry the business and put the right tools behind them, so growth stops depending on a handful of people.'],
+      ['Board and investors', 'How do board and investor updates come together?',
+        ['Ad hoc, often written the night before', 'Regularly, but mostly as a look back', 'Structured, with clear asks of the board', 'The board is a working asset: clear agenda, decisions and follow-through'],
+        'Turn board meetings into working sessions. A consistent pack, clear asks and tracked follow-through build investor confidence.'],
+      ['Founder focus', 'How much of the founder’s week goes to work only they can do?',
+        ['Very little: operations fill the week', 'About a quarter', 'About half', 'Most of it'],
+        'Free the founder for the work only they can do: vision, key relationships and capital. This is often where a fractional COO adds the most value.']
+    ];
+    const BANDS = {
+      ahead: ['Ahead', 'You’re operating ahead of your stage.', 'Your foundations are stronger than most at this point. The opportunity now is to protect that advantage as complexity grows.'],
+      pace: ['On pace', 'Your operations are keeping pace.', 'The basics are in place for where you are. The next stage will ask more of them, so now is the time to strengthen the weakest links.'],
+      stretched: ['Stretched', 'Growth is starting to outpace how you operate.', 'The momentum is real, but parts of the business are running on effort rather than systems. Addressing them now costs far less than fixing them mid-scale.'],
+      heroics: ['Heroics', 'Your growth is running on heroics.', 'The team is carrying the business through sheer effort. Building repeatable systems now protects both the people and the momentum.']
+    };
+    const dlg = document.getElementById('rc'), view = document.getElementById('rcView'), prog = document.getElementById('rcProg');
+    const back = document.getElementById('rcBack'), total = DIMS.length + 1;
+    prog.innerHTML = Array.from({length: total}, () => '<li></li>').join('');
+    const ringTpl = document.querySelector('.check-art .cring').outerHTML.replace('cring idle', 'cring');
+    let stage = null, ans = [], step = 0, busy = false, opener = null;
+
+    const swap = (html, after) => {
+      view.classList.add('out');
+      setTimeout(() => {
+        view.innerHTML = html; view.classList.remove('out'); view.classList.add('pre'); busy = false;
+        requestAnimationFrame(() => requestAnimationFrame(() => { view.classList.remove('pre'); after && after(); }));
+      }, view.childElementCount ? 380 : 0);
+    };
+    const progress = () => prog.querySelectorAll('li').forEach((li, i) => li.classList.toggle('done', i < step));
+    const optsHtml = (list, picked) => `<ul class="rc-opts">${list.map((t, i) => `<li><button type="button" class="rc-opt" data-v="${i}" aria-pressed="${picked === i}"><span class="k">${i + 1}</span><span>${esc(t)}</span><span class="dot" aria-hidden="true"></span></button></li>`).join('')}</ul>`;
+    const render = () => {
+      dlg.classList.remove('result'); progress();
+      back.hidden = step === 0;
+      let html;
+      if (step === 0) html = `<p class="rc-n">To begin</p><h3 class="rc-q" tabindex="-1">Where is the company today?</h3>${optsHtml(STAGES.map(x => x[1]), stage)}`;
+      else { const d = DIMS[step - 1]; html = `<p class="rc-n">Question ${step} of ${DIMS.length}</p><h3 class="rc-q" tabindex="-1">${esc(d[1])}</h3>${optsHtml(d[2], ans[step - 1])}`; }
+      swap(html, () => { const q = view.querySelector('.rc-q'); q && q.focus({preventScroll: true}); busy = false; });
+    };
+    const choose = v => {
+      if (busy) return; busy = true;
+      view.querySelectorAll('.rc-opt').forEach(b => b.setAttribute('aria-pressed', +b.dataset.v === v));
+      if (step === 0) stage = v; else ans[step - 1] = v;
+      setTimeout(() => { step++; step > DIMS.length ? result() : render(); }, 420);
+    };
+    const result = () => {
+      step = total; progress(); dlg.classList.add('result');
+      const st = STAGES[stage], score = ans.reduce((a, b) => a + b, 0), diff = score - st[3];
+      const band = diff >= 3 ? 'ahead' : diff >= -2 ? 'pace' : diff >= -6 ? 'stretched' : 'heroics';
+      const B = BANDS[band];
+      const order = ans.map((v, i) => [v, i]).sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+      const focus = order.slice(0, 2).map(x => x[1]);
+      const inv = st[0] === 'inv';
+      const help = inv
+        ? 'Tousi Studios supports investors with IC due diligence and PortCo interim leadership, stepping in where a portfolio company needs operating strength.'
+        : focus.includes(5)
+          ? 'Tousi Studios works alongside founders as a fractional COO and board director, building the systems, rhythm and reporting that sustain rapid growth.'
+          : 'Tousi Studios works alongside founders as a fractional COO, building the repeatable, scalable systems that sustain rapid growth.';
+      const legend = DIMS.map((d, i) => `<li class="${focus.includes(i) ? 'focus' : ''}"><span>${esc(d[0])}</span><span>${LEVELS[ans[i]]}</span></li>`).join('');
+      const html = `<div class="rc-res">
+        <div><div class="rc-dial">${ringTpl}<div class="mid"><b>${B[0]}</b><i>${esc(st[2])}</i></div></div><ul class="rc-legend">${legend}</ul></div>
+        <div><p class="rc-n">Your read-out</p><h3 tabindex="-1" class="rc-q rc-rq">${esc(B[1])}</h3><p class="sum">${esc(B[2])}</p>
+          <ul class="rc-start">${focus.map(i => `<li><h4>Start with ${esc(DIMS[i][0].toLowerCase())}</h4><p>${esc(DIMS[i][3])}</p></li>`).join('')}</ul>
+          <p class="rc-help">${esc(help)}</p>
+          <div class="rc-acts"><button type="button" class="send" id="rcTalk"><span class="ring"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h13M9 3l5 5-5 5" fill="none" stroke="currentColor"/></svg></span>Talk it through with Julia</button><button type="button" class="linkbtn" id="rcAgain">Take it again</button></div>
+          <p class="rc-note">A starting point for a conversation, not a formal assessment. Your answers stay in your browser; nothing is sent unless you choose to get in touch.</p>
+        </div></div>`;
+      swap(html, () => {
+        view.querySelectorAll('.rc-dial .arc').forEach((a, i) => { a.style.strokeDashoffset = 1 - Math.max(.04, ans[i] / 3); });
+        view.querySelector('.rc-res .rc-q').focus({preventScroll: true});
+        document.getElementById('rcAgain').addEventListener('click', () => { stage = null; ans = []; step = 0; render(); });
+        document.getElementById('rcTalk').addEventListener('click', () => {
+          const note = document.getElementById('form').elements['note'];
+          note.value = `From the readiness check. Stage: ${st[1]}. Read-out: ${B[1]} Where to start: ${focus.map(i => DIMS[i][0].toLowerCase()).join(', then ')}.\n\n`;
+          const want = inv ? 'PortCo interim leadership' : 'Fractional COO';
+          document.querySelectorAll('#topics button').forEach(b => { if (b.textContent === want) b.setAttribute('aria-pressed', 'true'); });
+          close();
+          setTimeout(() => { const t = document.getElementById('begin'); lenis ? lenis.scrollTo(t, {offset: -40}) : t.scrollIntoView(); setTimeout(() => document.getElementById('form').elements['name'].focus({preventScroll: true}), 1400); }, 450);
+        });
+      });
+    };
+    const open = () => {
+      opener = document.activeElement; stage = null; ans = []; step = 0; view.innerHTML = '';
+      dlg.showModal ? dlg.showModal() : dlg.setAttribute('open', '');
+      document.documentElement.style.overflow = 'hidden'; if (lenis) lenis.stop();
+      render();
+    };
+    const close = () => {
+      dlg.close ? dlg.close() : dlg.removeAttribute('open');
+    };
+    dlg.addEventListener('close', () => { document.documentElement.style.overflow = ''; if (lenis) lenis.start(); opener && opener.focus && opener.focus({preventScroll: true}); });
+    document.getElementById('rcOpen').addEventListener('click', open);
+    document.getElementById('rcClose').addEventListener('click', close);
+    back.addEventListener('click', () => { if (step > 0 && !busy) { step--; render(); } });
+    view.addEventListener('click', e => { const b = e.target.closest('.rc-opt'); if (b) choose(+b.dataset.v); });
+    dlg.addEventListener('keydown', e => {
+      if (dlg.classList.contains('result')) return;
+      const n = parseInt(e.key, 10);
+      if (n >= 1 && n <= 4 && !e.metaKey && !e.ctrlKey) { e.preventDefault(); choose(n - 1); }
+      else if (e.key === 'ArrowLeft' && step > 0 && !busy) { e.preventDefault(); step--; render(); }
+    });
+  })();
   loader.addEventListener('click', open);
   if (reduce || seen) { loader.style.transition = 'none'; open(); } else setTimeout(open, 3300);
 
@@ -1157,7 +1393,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   // Motion toggle
   const mb = document.getElementById('motionBtn');
   const setStill = v => {
-    still = v; mb.textContent = v ? 'Play motion' : 'Pause motion'; mb.setAttribute('aria-pressed', v);
+    still = v; document.documentElement.classList.toggle('still', v); mb.textContent = v ? 'Play motion' : 'Pause motion'; mb.setAttribute('aria-pressed', v);
     document.querySelectorAll('.marquee .row').forEach(r => r.style.animationPlayState = v ? 'paused' : '');
     vids.forEach(x => { if (v) x.pause(); else if (x.dataset.vis) x.play().catch(() => {}); });
     try { sessionStorage.setItem('tousi-pause', v ? '1' : '0'); } catch(e) {}
