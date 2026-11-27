@@ -559,6 +559,13 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   .aring{width:min(260px,70vw)}.step{opacity:1}
   .marquee .row{font-size:22px}
   .pin .wrap{grid-template-columns:minmax(0,1fr);gap:8px}.dial{width:min(170px,44vw);justify-self:start}.dial .count{justify-content:flex-start;height:40px;margin-top:4px}.dial .count b{font-size:32px}.chap h3{font-size:30px;margin-bottom:12px}.chap>p{font-size:15.5px}.help{margin-top:16px;padding-top:12px}.help .ht{font-size:18px}.help .hd{font-size:14px}.chaps{min-height:470px}
+  /* pin below the menu bar, never under it */
+  .pin{top:var(--hh,76px);height:calc(100svh - var(--hh,76px));align-items:flex-start;padding-top:clamp(10px,2.5svh,24px)}
+  .dial{width:min(150px,40vw,22svh)}.dial .count{height:34px;margin-top:2px}
+  .chapkick{margin-bottom:10px}.chaps{min-height:min(400px,calc(100svh - var(--hh,76px) - 22svh - 110px))}
+}
+@media(max-width:600px) and (max-height:640px){
+  .dial{width:min(110px,30vw,18svh)}.chap h3{font-size:26px}.chap>p{font-size:14.5px;line-height:1.5}.help{margin-top:12px;padding-top:10px}.help .hd{display:none}
 }
 @media(max-aspect-ratio:1/1){
   .hero{height:160svh}
@@ -1162,6 +1169,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   const L = {};
   const docTop = el => el.getBoundingClientRect().top + scrollY;
   const measure = () => {
+    document.documentElement.style.setProperty('--hh', hdr.offsetHeight + 'px');
     L.vh = innerHeight; L.heroH = heroEl.offsetHeight; L.stmt = docTop(stmt); L.aring = docTop(aring);
     L.tl = docTop(tl); L.tlH = tl.offsetHeight; L.lis = lis.map(docTop);
     L.why = docTop(why); L.whyH = why.offsetHeight; L.traj = docTop(traj);
