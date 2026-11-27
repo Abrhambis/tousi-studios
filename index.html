@@ -126,7 +126,7 @@ section{position:relative}
 @keyframes arcIdle{0%{stroke-dashoffset:1}28%,62%{stroke-dashoffset:var(--to,.35)}90%,100%{stroke-dashoffset:1}}
 .cring.idle .arc:nth-child(4n+2){--to:.1}.cring.idle .arc:nth-child(4n){--to:.5}.cring.idle .arc:nth-child(6n){--to:0}
 html.still .cring.idle .arc{animation-play-state:paused}
-@media(max-width:860px){.check-grid{grid-template-columns:1fr}.check-art{width:min(240px,70%);order:-1;justify-self:start}}
+@media(max-width:860px){.check-grid{grid-template-columns:1fr}.check-art{width:min(168px,44vw);order:-1;justify-self:start;margin-bottom:-8px}}
 
 /* Readiness check: dialog */
 dialog.rc{max-width:none;max-height:none;width:100%;height:100%;margin:0;inset:0;padding:0;border:0;background:radial-gradient(120% 90% at 70% 10%,#08323c,var(--deep) 62%);color:var(--ink);display:none;grid-template-rows:auto 1fr auto;overflow:hidden}
@@ -226,6 +226,7 @@ nav.links a.on{color:var(--ink)}
 .media{position:absolute;inset:0;will-change:transform;transform-origin:50% 48%}
 .hero video,.hero .poster{position:absolute;inset:-2%;width:104%;height:104%;object-fit:cover;will-change:transform}
 .hero video{transform:scale(1.02)}
+.hero #heroBg{display:none}
 .hero .poster{background:url(assets/ocean.jpg) center/cover}
 .hero .shade{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,rgba(3,27,33,0) 55%,rgba(3,27,33,.55)),linear-gradient(180deg,rgba(3,27,33,.4),rgba(3,27,33,0) 22%,rgba(3,27,33,0) 70%,rgba(3,27,33,.75));pointer-events:none}
 .lantern{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle var(--lr,420px) at var(--lx,50%) var(--ly,45%),rgba(3,27,33,0) 0%,rgba(3,27,33,.08) 45%,rgba(3,27,33,.42) 100%);transition:opacity 1.2s}
@@ -556,8 +557,8 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
 }
 @media(max-aspect-ratio:1/1){
   .hero{height:160svh}
-  .hero .poster{filter:blur(2px)}
-  .hero video{inset:auto 0;top:50%;height:auto;aspect-ratio:16/9;object-fit:cover;margin-top:-28vw;-webkit-mask-image:linear-gradient(180deg,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(180deg,transparent,#000 18%,#000 82%,transparent);transform:none!important}
+  .hero #heroBg{display:block;opacity:.9}
+  .hero #heroVid{inset:auto;left:50%;top:46%;width:152vw;max-width:none;height:auto;aspect-ratio:16/9;object-fit:cover;background:transparent;transform:translate(-50%,-50%)!important;-webkit-mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);mask-image:linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent)}
 }
 </style>
 </head>
@@ -599,7 +600,8 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   <div class="hstage">
     <div class="media" id="heroMedia">
       <div class="poster"></div>
-      <video id="heroVid" muted loop playsinline preload="auto" aria-hidden="true"></video>
+      <video id="heroBg" muted loop playsinline preload="auto" aria-hidden="true"></video>
+      <video id="heroVid" muted loop playsinline preload="auto" poster="assets/intro-poster.jpg" aria-hidden="true"></video>
     </div>
     <div class="lantern" id="lantern" aria-hidden="true"></div>
     <div class="shade"></div>
@@ -956,7 +958,10 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   const hero = document.getElementById('heroVid'), sea = document.getElementById('seaVid'), begin = document.getElementById('beginVid');
   const vids = [];
   if (!reduce) {
-    hero.src = small ? 'assets/intro-m.mp4' : 'assets/intro.mp4';
+    const tall = matchMedia('(max-aspect-ratio: 1/1)').matches, heroBg = document.getElementById('heroBg');
+    [hero, heroBg].forEach(v => { v.muted = true; v.defaultMuted = true; });
+    hero.src = tall || !small ? 'assets/intro.mp4' : 'assets/intro-m.mp4';
+    if (tall) { heroBg.src = 'assets/ocean-loop-m.mp4'; const bio = new IntersectionObserver(es => es.forEach(e => { heroBg.dataset.vis = e.isIntersecting ? '1' : ''; if (e.isIntersecting && !still) heroBg.play().catch(() => {}); else heroBg.pause(); }), {threshold:.05}); bio.observe(document.getElementById('top')); vids.push(heroBg); }
     sea.src = small ? 'assets/ocean-loop-m.mp4' : 'assets/ocean-loop.mp4';
     begin.src = 'assets/conversation-loop.mp4';
     sea.addEventListener('playing', () => sea.classList.add('on'), {once:true});
