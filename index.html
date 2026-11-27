@@ -105,6 +105,13 @@ section{position:relative}
 .herocue svg{width:48px;height:48px}
 @media(max-width:760px){.hpos h1{font-size:16.5px;max-width:26ch;margin:0 auto}.herocue{bottom:calc(clamp(24px,4.5vh,44px) + 76px)!important}}
 
+
+/* Dive: the services surface faintly, then scatter to nothing as you scroll */
+.hburst{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hbw{position:absolute;left:50%;top:50%;transform:translate(calc(-50% + var(--x) * 1vw),calc(-50% + var(--y) * 1vh));font:400 italic clamp(18px,1.55vw,25px)/1 var(--serif);letter-spacing:.02em;color:var(--sand);white-space:nowrap;opacity:0;text-shadow:0 1px 16px rgba(3,27,33,.6)}
+.hbw b{display:inline-block;font:inherit;white-space:pre;will-change:transform,opacity}
+@media(max-width:760px){.hbw{font-size:16.5px;transform:translate(calc(-50% + var(--mx) * 1vw),calc(-50% + var(--my) * 1vh))}}
+
 /* Header */
 header{position:fixed;inset:0 0 auto;z-index:40;transition:transform .7s var(--ease),background .5s}
 header.hide{transform:translateY(-100%)}
@@ -514,6 +521,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     <div class="grain" aria-hidden="true"></div>
     <svg class="portal" id="portal" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="50" cy="50" r="20"/></svg>
     <div class="dive" id="dive" aria-hidden="true"></div>
+    <div class="hburst" id="hburst" aria-hidden="true"><span class="hbw" style="--x:-24;--y:-21;--mx:-14;--my:-27">Fractional COO</span><span class="hbw" style="--x:25;--y:-15;--mx:16;--my:-15">IC diligence</span><span class="hbw" style="--x:-21;--y:17;--mx:-6;--my:15">PortCo interim leadership</span><span class="hbw" style="--x:23;--y:23;--mx:12;--my:27">Board advisory</span></div>
     <div class="endcard" id="endcard" aria-hidden="true"><img src="assets/monogram.png" alt=""><span>Creative × Abundance</span><small>Founder-led operating partners, since 2023</small></div>
     <div class="hpos" id="hpos">
       <h1>Fractional COO and operating partner to high-growth companies</h1>
@@ -902,6 +910,33 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   const progress = (el, start = .85, end = .35) => { const r = el.getBoundingClientRect(), vh = innerHeight; return Math.min(1, Math.max(0, (vh*start - r.top) / (vh*start - vh*end + r.height*0) / 1)); };
   let lastY = 0;
   let hx = 0, hy = 0;
+
+  // Dive words: split into letters, each with its own drift vector
+  const hbws = [...document.querySelectorAll('.hbw')].map((el, i) => {
+    const txt = el.textContent; el.textContent = '';
+    const cx = parseFloat(el.style.getPropertyValue('--x')), cy = parseFloat(el.style.getPropertyValue('--y'));
+    const ang = Math.atan2(cy, cx), n = txt.length;
+    const ls = [...txt].map((ch, k) => {
+      const b = document.createElement('b'); b.textContent = ch; el.appendChild(b);
+      const off = (k - (n - 1) / 2) / n, a = ang + off * .8 + (Math.random() - .5) * .45, d = 90 + Math.random() * 140;
+      return {b, dx: Math.cos(a) * d + off * 120, dy: Math.sin(a) * d + (Math.random() - .5) * 40, r: (Math.random() - .5) * 28, lag: (k / n) * .55 + Math.random() * .12};
+    });
+    return {el, ls, a0: .05 + i * .055};
+  });
+  const smooth = t => t * t * (3 - 2 * t);
+  const tickBurst = hp => {
+    for (const w of hbws) {
+      const show = smooth(Math.min(1, Math.max(0, (hp - w.a0) / .07)));
+      const b0 = w.a0 + .1, span = .26;
+      if (show <= 0) { if (w.el.style.opacity !== '0') w.el.style.opacity = 0; continue; }
+      w.el.style.opacity = show * .62;
+      for (const l of w.ls) {
+        const e = smooth(Math.min(1, Math.max(0, (hp - b0 - l.lag * span * .6) / span)));
+        l.b.style.transform = e ? `translate(${l.dx * e}px,${l.dy * e}px) rotate(${l.r * e}deg) scale(${1 - e * .35})` : '';
+        l.b.style.opacity = Math.pow(1 - e, 2.2);
+      }
+    }
+  };
   const heroMedia = document.getElementById('heroMedia'), portalC = document.querySelector('#portal circle'), dive = document.getElementById('dive'), cueArc = document.getElementById('cueArc'), lantern = document.getElementById('lantern'), endcard = document.getElementById('endcard'), cueEl = document.querySelector('.herocue'), hpos = document.getElementById('hpos');
   // Lantern: a soft light that follows the visitor's gaze, or drifts on its own
   let lx = innerWidth * .5, ly = innerHeight * .45, tx = lx, ty = ly, lastMove = 0;
@@ -938,6 +973,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     endcard.style.opacity = ec; endcard.style.transform = `scale(${.92 + ec * .08})`;
     cueEl.style.opacity = 1 - Math.min(1, hp * 2.2);
     hpos.style.opacity = 1 - Math.min(1, hp * 2.6);
+    tickBurst(hp);
     // statement words light up
     const r = stmt.getBoundingClientRect(), sp = Math.min(1, Math.max(0, (vh*.9 - r.top) / (vh*.75)));
     const lit = Math.round(sp * words.length);
