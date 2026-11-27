@@ -88,38 +88,6 @@ section{position:relative}
 @keyframes fade{to{opacity:1}}
 
 
-/* Loader: each service drawn in a single gold line */
-.lmark{transition:opacity .8s var(--ease),transform 1.1s var(--ease)}
-.loader.words .lmark{opacity:0;transform:translateY(-8px)}
-.lsvc{position:absolute;inset:0;pointer-events:none}
-.sv{position:absolute;inset:0;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(16px,2.6vh,26px)}
-.lstage .sv svg{position:static;inset:auto;width:clamp(92px,16vh,148px);height:auto;aspect-ratio:1;overflow:visible}
-.sv .d{fill:none;stroke:var(--sand);stroke-width:1;stroke-linecap:round;stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset var(--t,1s) cubic-bezier(.65,0,.25,1) var(--dl,0s)}
-.sv .d.g{stroke:var(--gold);stroke-width:1.5}
-.sv .d.f{stroke:rgba(217,197,174,.32)}
-.sv.in .d{stroke-dashoffset:0}
-.sv.out .d{stroke-dashoffset:-1;transition-duration:.75s;transition-delay:0s}
-.sv .n{opacity:0;transform:scale(.3);transform-box:fill-box;transform-origin:center;transition:opacity .6s var(--ease) var(--dl,0s),transform .9s var(--ease) var(--dl,0s)}
-.sv .n.s{fill:none;stroke:rgba(217,197,174,.7);stroke-width:1}
-.sv .n.g{fill:var(--gold)}
-.sv.in .n{opacity:1;transform:none}
-.sv.out .n{opacity:0;transform:scale(.6);transition-delay:0s}
-.sv .scan{stroke:var(--gold);stroke-width:.8;opacity:0}
-.sv.in .scan{animation:scan 1.15s cubic-bezier(.45,0,.3,1) .25s both}
-@keyframes scan{0%{opacity:0;transform:translateY(0)}15%{opacity:.9}85%{opacity:.9}100%{opacity:0;transform:translateY(72px)}}
-.sv .pulse{fill:none;stroke:var(--gold);stroke-width:.8;opacity:0;transform-box:fill-box;transform-origin:center}
-.sv.in .pulse{animation:pulse 1.3s var(--ease) 1s both}
-@keyframes pulse{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(3.2)}}
-.sv figcaption{overflow:hidden;padding:.06em .3em .14em}
-.sv figcaption span{display:block;font:400 italic clamp(21px,min(3.4vh,6vw),32px)/1.2 var(--serif);letter-spacing:.01em;color:var(--ink);white-space:nowrap;transform:translateY(110%);transition:transform 1s var(--ease) .3s}
-.sv.in figcaption span{transform:none}
-.sv.out figcaption span{transform:translateY(-110%);transition:transform .7s cubic-bezier(.65,0,.35,1) 0s}
-.lorb{transform-origin:200px 200px;transform:rotate(0deg);transition:transform 1.3s cubic-bezier(.65,0,.25,1)}
-.lorb circle{fill:var(--gold);opacity:0;transition:opacity .8s var(--ease)}
-.lorb .h{fill:none;stroke:var(--gold);stroke-width:.8;opacity:0}
-.loader.words .lorb circle{opacity:1}
-.loader.words .lorb .h{opacity:.45}
-
 /* Cursor ring (fine pointers only) */
 .cursor{position:fixed;left:0;top:0;width:36px;height:36px;margin:-18px 0 0 -18px;border:1px solid rgba(217,197,174,.6);border-radius:50%;pointer-events:none;z-index:90;transition:width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),background .4s,opacity .3s;opacity:0;mix-blend-mode:normal}
 .cursor.on{opacity:1}
@@ -128,14 +96,51 @@ section{position:relative}
 
 
 /* Positioning: what Tousi Studios is, from the first second */
-.hpos{position:absolute;left:50%;bottom:clamp(24px,4.5vh,44px);transform:translateX(-50%);z-index:3;width:min(92vw,760px);text-align:center;pointer-events:none}
-.hpos h1{font:400 italic clamp(17px,1.35vw,21px)/1.4 var(--serif);letter-spacing:.06em;color:var(--sand);margin:0;text-wrap:balance;text-shadow:0 1px 18px rgba(3,27,33,.8);opacity:0;transition:opacity 2.4s var(--ease) 1.4s,letter-spacing 3.2s var(--ease) 1.4s}
-.hero.live .hpos h1{opacity:1;letter-spacing:.015em}
 .endcard small{font:500 13.5px var(--sans);color:var(--mute);letter-spacing:.01em;margin-top:-14px}
-.herocue{bottom:calc(clamp(24px,4.5vh,44px) + 46px)!important}
 .herocue>span{display:none}
 .herocue svg{width:48px;height:48px}
-@media(max-width:760px){.hpos h1{font-size:16.5px;max-width:26ch;margin:0 auto}.herocue{bottom:calc(clamp(24px,4.5vh,44px) + 76px)!important}}
+
+
+
+/* Opening composition: Creative × Abundance, drawn live over the ocean */
+.hcomp{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:84px max(5vw,22px) clamp(96px,15vh,140px);text-align:center;pointer-events:none;will-change:opacity,transform}
+.hcomp::before{content:"";position:absolute;left:50%;top:50%;width:min(1100px,110vw);height:70%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(3,27,33,.5),rgba(3,27,33,0));z-index:-1;opacity:0;transition:opacity 2s var(--ease)}
+.hero.live .hcomp::before{opacity:1}
+.hx{margin:0 0 clamp(14px,2.2vh,22px);font:400 italic clamp(16px,1.3vw,20px)/1 var(--serif);letter-spacing:.04em;color:var(--sand);opacity:0;transform:translateY(10px);transition:opacity 1.4s var(--ease) .15s,transform 1.6s var(--ease) .15s}
+.hx i{font-style:normal;color:var(--gold);margin:0 .25em}
+.hm{margin:0;line-height:1}
+.hml{display:flex;justify-content:center;overflow:hidden;padding:.06em 0 .1em;font:400 clamp(32px,4.5vw,68px)/1 var(--serif);letter-spacing:.26em;margin-right:-.26em;text-transform:uppercase;color:var(--ink);text-shadow:0 2px 40px rgba(3,27,33,.45)}
+.hml span{display:inline-block;transform:translateY(105%);transition:transform 1.3s cubic-bezier(.2,.8,.2,1);transition-delay:calc(.35s + var(--i) * .045s)}
+.hero.live .hx{opacity:1;transform:none}
+.hero.live .hml span{transform:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hu{display:block;width:min(460px,60vw);height:1px;margin:clamp(16px,2.6vh,26px) auto 0;background:linear-gradient(90deg,rgba(184,146,90,0),var(--gold) 30%,var(--gold) 70%,rgba(184,146,90,0));transform:scaleX(0);transition:transform 1.6s cubic-bezier(.65,0,.25,1) 1.05s}
+.hero.live .hu{transform:none}
+.hd2{margin:clamp(16px,2.4vh,24px) 0 0;font:400 clamp(14px,1.05vw,16px)/1.5 var(--sans);letter-spacing:.02em;color:rgba(232,225,217,.78);opacity:0;transition:opacity 1.6s var(--ease) 1.6s}
+.hero.live .hd2{opacity:1}
+.mchart{position:relative;width:min(980px,90vw);aspect-ratio:1000/250;margin-top:clamp(28px,6vh,64px)}
+.mchart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.mbase{stroke:rgba(217,197,174,.35);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1.8s cubic-bezier(.65,0,.25,1) 1.3s}
+.hero.live .mbase{stroke-dashoffset:0}
+.mcurve{fill:none;stroke:var(--sand);stroke-width:1.3;vector-effect:non-scaling-stroke;stroke-dasharray:1 1;stroke-dashoffset:1}
+#mticks line{stroke:rgba(217,197,174,.16);stroke-width:1;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform 1.2s var(--ease)}
+#mticks line.on{transform:none}
+.mdot,.mglow{position:absolute;left:0;top:0;border-radius:50%;pointer-events:none;opacity:0}
+.mdot{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;background:var(--gold);box-shadow:0 0 18px rgba(184,146,90,.8)}
+.mglow{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border:1px solid var(--gold)}
+.mglow.on{animation:mglow 3.4s var(--ease) infinite}
+@keyframes mglow{0%{opacity:.8;transform:scale(1)}70%,100%{opacity:0;transform:scale(5.5)}}
+.mst{position:absolute;transform:translate(-50%,14px);font:400 italic clamp(13px,1vw,15px) var(--serif);color:var(--sand);white-space:nowrap;opacity:0;transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+.mst::before{content:"";position:absolute;left:50%;top:-17px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;border:1px solid rgba(217,197,174,.8);background:var(--deep)}
+.mst.on{opacity:1;transform:translate(-50%,18px)}
+.endcard small{font:400 italic clamp(16px,1.4vw,19px) var(--serif);color:var(--sand);letter-spacing:.01em}
+@media(max-width:760px){
+  .hcomp{padding:84px 20px 120px}
+  .hml{font-size:clamp(24px,7.4vw,36px);letter-spacing:.16em;margin-right:-.16em}
+  .hd2{max-width:28ch}
+  .mchart{width:84vw;aspect-ratio:1000/420;margin-top:40px}
+  .mst{font-size:13px}
+}
 
 /* Header */
 header{position:fixed;inset:0 0 auto;z-index:40;transition:transform .7s var(--ease),background .5s}
@@ -506,17 +511,12 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="lstage">
-    <svg viewBox="0 0 400 400"><circle class="lring" cx="200" cy="200" r="190" transform="rotate(-90 200 200)"/><g class="lorb" id="lorb"><circle class="h" cx="200" cy="10" r="9"/><circle cx="200" cy="10" r="4"/></g><circle class="lring2" cx="200" cy="200" r="172"/>
+    <svg viewBox="0 0 400 400"><circle class="lring" cx="200" cy="200" r="190" transform="rotate(-90 200 200)"/><circle class="lring2" cx="200" cy="200" r="172"/>
       <g class="ldots"><circle cx="200" cy="10" r="3" style="animation-delay:.4s"/><circle cx="390" cy="200" r="3" style="animation-delay:.8s"/><circle cx="200" cy="390" r="3" style="animation-delay:1.2s"/><circle cx="10" cy="200" r="3" style="animation-delay:1.6s"/></g></svg>
     <div class="lmark">
       <img src="assets/monogram.png" alt="">
       <div class="lword"><span style="animation-delay:.9s">T</span><span style="animation-delay:.98s">O</span><span style="animation-delay:1.06s">U</span><span style="animation-delay:1.14s">S</span><span style="animation-delay:1.22s">I</span></div>
       <div class="lsub">Studios</div>
-    </div>
-    <div class="lsvc" id="lsvc" aria-hidden="true">
-      <figure class="sv"><svg viewBox="0 0 120 120"><circle class="d f" pathLength="1" style="--dl:0s;--t:1.2s"  cx="60" cy="60" r="44" transform="rotate(-90 60 60)"/><path class="d g" pathLength="1" style="--dl:0.45s;--t:0.9s"  d="M60 16 A44 44 0 0 1 104 60"/><path class="d " pathLength="1" style="--dl:0.85s;--t:0.6s"  d="M60 60 L91.1 28.9"/><circle class="n" style="--dl:.8s" cx="60" cy="60" r="2.6" fill="var(--sand)"/><circle class="n g" style="--dl:1.2s" cx="91.1" cy="28.9" r="2.4"/></svg><figcaption><span>Fractional COO</span></figcaption></figure>
-      <figure class="sv"><svg viewBox="0 0 120 120"><rect class="d f" pathLength="1" style="--dl:0s;--t:1.2s"  x="18" y="18" width="84" height="84" rx="2"/><circle class="n s" style="--dl:0.05s" cx="36" cy="36" r="2.6"/><circle class="n s" style="--dl:0.11s" cx="60" cy="36" r="2.6"/><circle class="n s" style="--dl:0.17s" cx="84" cy="36" r="2.6"/><circle class="n s" style="--dl:0.23s" cx="36" cy="60" r="2.6"/><circle class="n s" style="--dl:0.29s" cx="60" cy="60" r="2.6"/><circle class="n s" style="--dl:0.35s" cx="84" cy="60" r="2.6"/><circle class="n s" style="--dl:0.41s" cx="36" cy="84" r="2.6"/><circle class="n s" style="--dl:0.47s" cx="60" cy="84" r="2.6"/><circle class="n s" style="--dl:0.53s" cx="84" cy="84" r="2.6"/><line class="scan" x1="22" y1="24" x2="98" y2="24"/><circle class="n g" style="--dl:1.25s" cx="84" cy="60" r="2.8"/><circle class="d g" pathLength="1" style="--dl:1.3s;--t:0.8s"  cx="84" cy="60" r="8" transform="rotate(-90 84 60)"/></svg><figcaption><span>IC diligence</span></figcaption></figure>
-      <figure class="sv"><svg viewBox="0 0 120 120"><circle class="d f" pathLength="1" style="--dl:0s;--t:1.2s"  cx="60" cy="60" r="40" transform="rotate(-90 60 60)"/><circle class="n s" style="--dl:0.15s" cx="60.0" cy="20.0" r="3"/><circle class="n s" style="--dl:0.23s" cx="94.6" cy="40.0" r="3"/><circle class="n s" style="--dl:0.31s" cx="94.6" cy="80.0" r="3"/><circle class="n s" style="--dl:0.39s" cx="60.0" cy="100.0" r="3"/><circle class="n s" style="--dl:0.47s" cx="25.4" cy="80.0" r="3"/><circle class="n s" style="--dl:0.55s" cx="25.4" cy="40.0" r="3"/><path class="d " pathLength="1" style="--dl:0.55s;--t:0.55s"  d="M60.0 20.0 L60 60"/><path class="d " pathLength="1" style="--dl:0.6000000000000001s;--t:0.55s"  d="M94.6 40.0 L60 60"/><path class="d " pathLength="1" style="--dl:0.65s;--t:0.55s"  d="M94.6 80.0 L60 60"/><path class="d " pathLength="1" style="--dl:0.7000000000000001s;--t:0.55s"  d="M60.0 100.0 L60 60"/><path class="d " pathLength="1" style="--dl:0.75s;--t:0.55s"  d="M25.4 80.0 L60 60"/><path class="d " pathLength="1" style="--dl:0.8s;--t:0.55s"  d="M25.4 40.0 L60 60"/><circle class="n g" style="--dl:.95s" cx="60" cy="60" r="3.2"/><circle class="pulse" cx="60" cy="60" r="3.2"/></svg><figcaption><span>Board advisory</span></figcaption></figure>
     </div>
   </div>
   <span class="lskip">Enter</span>
@@ -551,9 +551,21 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     <div class="grain" aria-hidden="true"></div>
     <svg class="portal" id="portal" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="50" cy="50" r="20"/></svg>
     <div class="dive" id="dive" aria-hidden="true"></div>
-    <div class="endcard" id="endcard" aria-hidden="true"><img src="assets/monogram.png" alt=""><span>Creative × Abundance</span><small>Founder-led operating partners, since 2023</small></div>
-    <div class="hpos" id="hpos">
-      <h1>Fractional COO and operating partner to high-growth companies</h1>
+    <div class="endcard" id="endcard" aria-hidden="true"><img src="assets/monogram.png" alt=""><small>Founder-led operating partners, since 2023</small></div>
+    <div class="hcomp" id="hcomp">
+      <p class="hx">Creative <i>×</i> Abundance</p>
+      <h1 class="hm"><span class="sr">Build momentum. </span><span class="hml" aria-hidden="true"><span style="--i:0">B</span><span style="--i:1">u</span><span style="--i:2">i</span><span style="--i:3">l</span><span style="--i:4">d</span><span style="--i:5">&nbsp;</span><span style="--i:6">m</span><span style="--i:7">o</span><span style="--i:8">m</span><span style="--i:9">e</span><span style="--i:10">n</span><span style="--i:11">t</span><span style="--i:12">u</span><span style="--i:13">m</span></span><span class="sr">Tousi Studios is a fractional COO and operating partner to high-growth companies.</span></h1>
+      <i class="hu" aria-hidden="true"></i>
+      <p class="hd2">Fractional COO and operating partner to high-growth companies</p>
+      <div class="mchart" id="mchart" aria-hidden="true">
+        <svg viewBox="0 0 1000 250" preserveAspectRatio="none">
+          <g id="mticks"></g>
+          <line class="mbase" x1="0" y1="236" x2="1000" y2="236" pathLength="1"/>
+          <path class="mcurve" id="mcurve" pathLength="1" d="M0 230 C 230 228 420 214 560 184 S 820 86 1000 14"/>
+        </svg>
+        <i class="mglow" id="mglow"></i><i class="mdot" id="mdot"></i>
+        <span class="mst" data-at=".2">Seed</span><span class="mst" data-at=".5">Series A</span><span class="mst" data-at=".77">Scale</span>
+      </div>
     </div>
     <a class="herocue fade" style="--d:.6s" href="#intro" aria-label="Scroll to begin">
       <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" class="c0"/><circle cx="32" cy="32" r="28" class="c1" id="cueArc"/><path d="M32 22v18M25 33l7 7 7-7" class="c2"/></svg>
@@ -874,7 +886,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   const hero = document.getElementById('heroVid'), sea = document.getElementById('seaVid'), begin = document.getElementById('beginVid');
   const vids = [];
   if (!reduce) {
-    hero.src = small ? 'assets/intro-m.mp4' : 'assets/intro.mp4';
+    hero.src = small ? 'assets/ocean-loop-m.mp4' : 'assets/ocean-loop.mp4';
     sea.src = small ? 'assets/ocean-loop-m.mp4' : 'assets/ocean-loop.mp4';
     begin.src = 'assets/conversation-loop.mp4';
     sea.addEventListener('playing', () => sea.classList.add('on'), {once:true});
@@ -900,22 +912,40 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     try { sessionStorage.setItem('tousi-seen','1'); } catch(e) {}
   };
 
-  // Loader: each service drawn in turn while a gold dot travels the ring
-  const svs = [...document.querySelectorAll('#lsvc .sv')], lorb = document.getElementById('lorb');
-  const timers = [];
-  const playWords = () => {
-    const T0 = 2300, SLOT = 1550, HOLD = 1250;
-    timers.push(setTimeout(() => loader.classList.add('words'), T0 - 200));
-    svs.forEach((el, i) => {
-      const t0 = T0 + i * SLOT;
-      timers.push(setTimeout(() => { el.classList.add('in'); lorb.style.transform = `rotate(${i * 120}deg)`; }, t0));
-      timers.push(setTimeout(() => el.classList.add('out'), t0 + HOLD));
-    });
-    timers.push(setTimeout(() => { lorb.style.transform = 'rotate(360deg)'; }, T0 + 2 * SLOT + HOLD - 150));
-    timers.push(setTimeout(open, T0 + 2 * SLOT + HOLD + 650));
-  };
-  loader.addEventListener('click', () => { timers.forEach(clearTimeout); open(); });
-  if (reduce || seen) { loader.style.transition = 'none'; open(); } else playWords();
+
+  // Opening chart: ticks rise, the curve draws, a gold point carries it to scale
+  (() => {
+    const curve = document.getElementById('mcurve'), ticksG = document.getElementById('mticks'), chart = document.getElementById('mchart');
+    const dot = document.getElementById('mdot'), glow = document.getElementById('mglow'), msts = [...chart.querySelectorAll('.mst')];
+    const L = curve.getTotalLength(), N = 260, pts = [];
+    for (let k = 0; k <= N; k++) { const q = curve.getPointAtLength(L * k / N); pts.push([q.x, q.y]); }
+    const yAt = x => { for (let k = 1; k < pts.length; k++) if (pts[k][0] >= x) { const [x0,y0] = pts[k-1], [x1,y1] = pts[k]; return y0 + (y1 - y0) * ((x - x0) / Math.max(.001, x1 - x0)); } return pts[pts.length-1][1]; };
+    const ns = 'http://www.w3.org/2000/svg', ticks = [];
+    for (let x = 20; x <= 990; x += 22) { const l = document.createElementNS(ns, 'line'); const y = yAt(x) + 10; l.setAttribute('x1', x); l.setAttribute('x2', x); l.setAttribute('y1', Math.min(232, y)); l.setAttribute('y2', 236); ticksG.appendChild(l); ticks.push([x, l]); }
+    const at = f => { const q = curve.getPointAtLength(L * f); return [q.x, q.y]; };
+    msts.forEach(m => { const [x, y] = at(+m.dataset.at); m.dataset.x = x; m.style.left = (x / 10) + '%'; m.style.top = (y / 250 * 100) + '%'; });
+    const place = (el, f) => { const [x, y] = at(f); el.style.left = (x / 10) + '%'; el.style.top = (y / 250 * 100) + '%'; };
+    let started = false;
+    const run = () => {
+      if (started) return; started = true;
+      const D = 2600, t0 = performance.now() + 1700;
+      const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const step = now => {
+        const t = Math.min(1, Math.max(0, (now - t0) / D)), f = ease(t);
+        curve.style.strokeDashoffset = 1 - f;
+        if (t > 0) { dot.style.opacity = 1; place(dot, f); }
+        const xf = at(f)[0];
+        ticks.forEach(([x, l]) => { if (x <= xf + 10) l.classList.add('on'); });
+        msts.forEach(m => { if (+m.dataset.at <= f + .005) m.classList.add('on'); });
+        if (t < 1) requestAnimationFrame(step); else { place(glow, 1); glow.classList.add('on'); }
+      };
+      requestAnimationFrame(step);
+    };
+    const top = document.getElementById('top');
+    if (top.classList.contains('live')) run(); else new MutationObserver((m, o) => { if (top.classList.contains('live')) { o.disconnect(); run(); } }).observe(top, {attributes:true});
+  })();
+  loader.addEventListener('click', open);
+  if (reduce || seen) { loader.style.transition = 'none'; open(); } else setTimeout(open, 3300);
 
   // Smooth scroll (desktop, motion allowed)
   let lenis = null;
@@ -953,7 +983,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   const progress = (el, start = .85, end = .35) => { const r = el.getBoundingClientRect(), vh = innerHeight; return Math.min(1, Math.max(0, (vh*start - r.top) / (vh*start - vh*end + r.height*0) / 1)); };
   let lastY = 0;
   let hx = 0, hy = 0;
-  const heroMedia = document.getElementById('heroMedia'), portalC = document.querySelector('#portal circle'), dive = document.getElementById('dive'), cueArc = document.getElementById('cueArc'), lantern = document.getElementById('lantern'), endcard = document.getElementById('endcard'), cueEl = document.querySelector('.herocue'), hpos = document.getElementById('hpos');
+  const heroMedia = document.getElementById('heroMedia'), portalC = document.querySelector('#portal circle'), dive = document.getElementById('dive'), cueArc = document.getElementById('cueArc'), lantern = document.getElementById('lantern'), endcard = document.getElementById('endcard'), cueEl = document.querySelector('.herocue'), hcomp = document.getElementById('hcomp');
   // Lantern: a soft light that follows the visitor's gaze, or drifts on its own
   let lx = innerWidth * .5, ly = innerHeight * .45, tx = lx, ty = ly, lastMove = 0;
   if (!reduce) {
@@ -988,7 +1018,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     const ec = Math.max(0, Math.min(1, (hp - .6) / .3));
     endcard.style.opacity = ec; endcard.style.transform = `scale(${.92 + ec * .08})`;
     cueEl.style.opacity = 1 - Math.min(1, hp * 2.2);
-    hpos.style.opacity = 1 - Math.min(1, hp * 2.6);
+    hcomp.style.opacity = 1 - Math.min(1, hp * 2.4); hcomp.style.transform = `translateY(${hp * -70}px)`;
     // statement words light up
     const r = stmt.getBoundingClientRect(), sp = Math.min(1, Math.max(0, (vh*.9 - r.top) / (vh*.75)));
     const lit = Math.round(sp * words.length);
