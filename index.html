@@ -963,16 +963,21 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   if (!reduce) {
     const tall = matchMedia('(max-aspect-ratio: 1/1)').matches;
     hero.muted = true; hero.defaultMuted = true;
-    if (tall) { hero.poster = 'assets/intro-portrait-poster.jpg'; hero.src = 'assets/intro-portrait.mp4'; }
+    // On phones keep the Build momentum still on screen until the film is actually playing
+    if (tall) { hero.preload = 'none'; hero.poster = 'assets/intro-portrait-poster.jpg'; hero.src = 'assets/intro-portrait.mp4'; }
     else hero.src = small ? 'assets/intro-m.mp4' : 'assets/intro.mp4';
     // The page-wide ocean moves on desktop; phones keep the still image behind the overlay
     if (matchMedia('(pointer: fine)').matches && !small) sea.src = 'assets/ocean-loop.mp4';
     begin.src = small ? 'assets/conversation-loop-m.mp4' : 'assets/conversation-loop.mp4';
     sea.addEventListener('playing', () => sea.classList.add('on'), {once:true});
+    // Low Power Mode and some in-app browsers block autoplay: start on the first touch instead
+    let armed = false;
+    const unblock = () => { vids.forEach(x => { if (x.dataset.vis && !still) x.play().catch(() => {}); }); ['touchend','click','keydown'].forEach(ev => removeEventListener(ev, unblock, true)); armed = false; };
+    const tryPlay = v => { const pr = v.play(); if (pr && pr.catch) pr.catch(() => { if (!armed) { armed = true; ['touchend','click','keydown'].forEach(ev => addEventListener(ev, unblock, {capture:true, passive:true})); } }); };
     [[hero,document.getElementById('top')],[sea,document.getElementById('statement')],[begin,document.getElementById('begin')]].forEach(([v,zone],k) => {
       const vio = new IntersectionObserver(es => es.forEach(e => {
         v.dataset.vis = e.isIntersecting ? '1' : '';
-        if (e.isIntersecting && !still) v.play().catch(() => {}); else if (k !== 1) v.pause();
+        if (e.isIntersecting && !still) tryPlay(v); else if (k !== 1) v.pause();
       }), {threshold:.05});
       if (k === 1 && !sea.src) return;
       vio.observe(k === 1 ? document.querySelector('main') : zone);
