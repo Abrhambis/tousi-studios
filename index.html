@@ -80,13 +80,23 @@ section{position:relative}
 .lword{font:400 clamp(30px,5.2vh,54px)/1 var(--serif);letter-spacing:.32em;margin-right:-.32em;display:flex;justify-content:center;overflow:hidden}
 .lword span{display:inline-block;transform:translateY(110%);animation:up 1.1s var(--ease) forwards}
 .lsub{font:500 clamp(11px,1.5vh,14px) var(--sans);letter-spacing:.62em;margin-right:-.62em;text-transform:uppercase;color:var(--sand);margin-top:14px;opacity:0;animation:fade 1.2s 1.5s forwards}
-.ltag{font:400 italic clamp(15px,2vh,19px) var(--serif);color:var(--mute);margin:34px 0 0;opacity:0;animation:fade 1.2s 2s forwards}
 .lskip{position:absolute;bottom:max(4vh,22px);left:50%;transform:translateX(-50%);font:600 10.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:rgba(217,197,174,.5);opacity:0;animation:fade 1s 2.4s forwards}
 @keyframes up{to{transform:none}}
 @keyframes rise{to{opacity:1;transform:none}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes draw{to{stroke-dashoffset:0}}
 @keyframes fade{to{opacity:1}}
+
+
+/* Loader: the three services surface, then turn to dust */
+.lmark{transition:opacity .7s var(--ease),transform 1s var(--ease)}
+.loader.words .lmark{opacity:0;transform:scale(.94)}
+.lwords{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.lwords span{grid-area:1/1;font:400 italic clamp(22px,min(4.6vh,6.2vw),46px)/1.2 var(--serif);letter-spacing:.12em;color:var(--ink);white-space:nowrap;opacity:0;filter:blur(8px);transition:opacity .7s var(--ease),filter .9s var(--ease),letter-spacing 1.2s var(--ease);
+  -webkit-mask-image:linear-gradient(90deg,transparent 40%,#000 60%);mask-image:linear-gradient(90deg,transparent 40%,#000 60%);-webkit-mask-size:300% 100%;mask-size:300% 100%;-webkit-mask-position:100% 0;mask-position:100% 0}
+.lwords span.in{opacity:1;filter:none;letter-spacing:.02em}
+.lwords span.go{-webkit-mask-position:0 0;mask-position:0 0;transition:-webkit-mask-position .5s cubic-bezier(.5,0,.6,1),mask-position .5s cubic-bezier(.5,0,.6,1)}
+.ldust{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 
 /* Cursor ring (fine pointers only) */
 .cursor{position:fixed;left:0;top:0;width:36px;height:36px;margin:-18px 0 0 -18px;border:1px solid rgba(217,197,174,.6);border-radius:50%;pointer-events:none;z-index:90;transition:width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),background .4s,opacity .3s;opacity:0;mix-blend-mode:normal}
@@ -96,28 +106,14 @@ section{position:relative}
 
 
 /* Positioning: what Tousi Studios is, from the first second */
-.ltag{position:absolute;left:50%;top:calc(100% + clamp(22px,4vh,40px));transform:translateX(-50%);width:max-content;max-width:86vw;margin:0;text-align:center;font:400 italic clamp(16px,2.2vh,21px)/1.3 var(--serif);color:var(--sand);opacity:0;animation:ltag 1.2s var(--ease) 1.9s forwards}
-@keyframes ltag{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
-.hpos{position:absolute;left:max(5vw,22px,calc(50vw - 660px + 5vw));bottom:clamp(34px,7vh,72px);z-index:3;width:min(520px,36vw);pointer-events:none}
-.hpos::before{content:"";position:absolute;inset:-60px -80px -50px -60px;z-index:-1;background:radial-gradient(closest-side,rgba(3,27,33,.55),rgba(3,27,33,0));opacity:0;transition:opacity 1.6s var(--ease) .9s}
-.hrule{display:block;width:56px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 1.2s var(--ease) .9s;margin-bottom:18px}
-.hpos h1{font:400 clamp(22px,2.15vw,34px)/1.18 var(--serif);letter-spacing:-.005em;color:var(--ink);margin:0;text-shadow:0 2px 24px rgba(3,27,33,.7);opacity:0;transform:translateY(18px);transition:opacity 1.3s var(--ease) 1.25s,transform 1.4s var(--ease) 1.25s}
-.hsvc{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:nowrap;white-space:nowrap}
-.hsvc li{font:500 14px var(--sans);color:var(--sand);opacity:0;transform:translateY(10px);transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
-.hsvc li+li::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--gold);vertical-align:middle;margin:0 14px 2px}
-.hsvc li:nth-child(1){transition-delay:1.9s}.hsvc li:nth-child(2){transition-delay:2.25s}.hsvc li:nth-child(3){transition-delay:2.6s}
-.hero.live .hpos::before{opacity:1}
-.hero.live .hrule{transform:none}
-.hero.live .hpos h1,.hero.live .hsvc li{opacity:1;transform:none}
+.hpos{position:absolute;left:50%;bottom:clamp(24px,4.5vh,44px);transform:translateX(-50%);z-index:3;width:min(92vw,760px);text-align:center;pointer-events:none}
+.hpos h1{font:400 italic clamp(17px,1.35vw,21px)/1.4 var(--serif);letter-spacing:.06em;color:var(--sand);margin:0;text-wrap:balance;text-shadow:0 1px 18px rgba(3,27,33,.8);opacity:0;transition:opacity 2.4s var(--ease) 1.4s,letter-spacing 3.2s var(--ease) 1.4s}
+.hero.live .hpos h1{opacity:1;letter-spacing:.015em}
 .endcard small{font:500 13.5px var(--sans);color:var(--mute);letter-spacing:.01em;margin-top:-14px}
-@media(max-aspect-ratio:1/1),(max-width:760px){
-  .hpos{left:max(6vw,22px);right:max(6vw,22px);bottom:clamp(120px,17vh,160px);width:auto;text-align:center}
-  .hrule{margin:0 auto 16px;transform-origin:center}
-  .hpos h1{font-size:clamp(22px,6vw,30px);max-width:20ch;margin:0 auto}
-  .hsvc{justify-content:center}
-  .hsvc li{font-size:13px}
-  .hsvc li+li::before{margin:0 10px 2px}
-}
+.herocue{bottom:calc(clamp(24px,4.5vh,44px) + 46px)!important}
+.herocue>span{display:none}
+.herocue svg{width:48px;height:48px}
+@media(max-width:760px){.hpos h1{font-size:16.5px;max-width:26ch;margin:0 auto}.herocue{bottom:calc(clamp(24px,4.5vh,44px) + 76px)!important}}
 
 /* Header */
 header{position:fixed;inset:0 0 auto;z-index:40;transition:transform .7s var(--ease),background .5s}
@@ -495,8 +491,9 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
       <div class="lword"><span style="animation-delay:.9s">T</span><span style="animation-delay:.98s">O</span><span style="animation-delay:1.06s">U</span><span style="animation-delay:1.14s">S</span><span style="animation-delay:1.22s">I</span></div>
       <div class="lsub">Studios</div>
     </div>
-    <p class="ltag">Fractional COO for high-growth companies</p>
+    <div class="lwords" id="lwords"><span>Fractional COO</span><span>IC diligence</span><span>Board advisory</span></div>
   </div>
+  <canvas class="ldust" id="ldust"></canvas>
   <span class="lskip">Enter</span>
 </div>
 <div class="sea" aria-hidden="true"><video id="seaVid" muted loop playsinline preload="none"></video></div>
@@ -531,9 +528,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     <div class="dive" id="dive" aria-hidden="true"></div>
     <div class="endcard" id="endcard" aria-hidden="true"><img src="assets/monogram.png" alt=""><span>Creative × Abundance</span><small>Founder-led operating partners, since 2023</small></div>
     <div class="hpos" id="hpos">
-      <i class="hrule" aria-hidden="true"></i>
-      <h1>Operating leadership for high-growth companies and the investors behind them.</h1>
-      <ul class="hsvc" aria-label="Services"><li>Fractional COO</li><li>IC diligence</li><li>Board advisory</li></ul>
+      <h1>Fractional COO and operating partner to high-growth companies</h1>
     </div>
     <a class="herocue fade" style="--d:.6s" href="#intro" aria-label="Scroll to begin">
       <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" class="c0"/><circle cx="32" cy="32" r="28" class="c1" id="cueArc"/><path d="M32 22v18M25 33l7 7 7-7" class="c2"/></svg>
@@ -876,11 +871,60 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     if (opened) return; opened = true;
     try { hero.currentTime = 0; if (!still) hero.play().catch(() => {}); } catch(e) {}
     loader.classList.add('out');
+    setTimeout(() => { cancelAnimationFrame(dRaf); dRaf = 0; parts = []; }, 2000);
     setTimeout(() => { document.querySelectorAll('.hero .fade').forEach(el => el.classList.add('in')); document.getElementById('top').classList.add('live'); }, 700);
     try { sessionStorage.setItem('tousi-seen','1'); } catch(e) {}
   };
-  loader.addEventListener('click', open);
-  if (reduce || seen) { loader.style.transition = 'none'; open(); } else setTimeout(open, 3300);
+
+  // Loader words: surface, then dissolve into drifting dust
+  const lwords = [...document.querySelectorAll('#lwords span')], dust = document.getElementById('ldust'), dctx = dust.getContext('2d');
+  const timers = []; let parts = [], dRaf = 0, dLast = 0;
+  const sizeDust = () => { const d = Math.min(2, devicePixelRatio || 1); dust.width = innerWidth * d; dust.height = innerHeight * d; dctx.setTransform(d, 0, 0, d, 0, 0); };
+  const dustFrame = now => {
+    const dt = Math.min(.05, (now - (dLast || now)) / 1000); dLast = now;
+    dctx.clearRect(0, 0, innerWidth, innerHeight);
+    let alive = 0;
+    for (const q of parts) {
+      q.t += dt; if (q.t < 0) { alive++; continue; }
+      if (q.t > q.life) continue; alive++;
+      q.vx += (Math.sin(q.y * .045 + now * .0021) * 34 + 22) * dt; q.vy += (Math.cos(q.x * .03 + now * .0017) * 18 - 16) * dt;
+      q.vx *= .985; q.vy *= .985; q.x += q.vx * dt; q.y += q.vy * dt;
+      const k = q.t / q.life, a = Math.pow(1 - k, 1.6) * q.a, z = q.s * (1 - k * .55);
+      dctx.fillStyle = q.gold ? `rgba(184,146,90,${a})` : `rgba(217,197,174,${a})`;
+      dctx.fillRect(q.x, q.y, z, z);
+    }
+    parts = parts.filter(q => q.t <= q.life);
+    dRaf = alive ? requestAnimationFrame(dustFrame) : 0; if (!alive) { dLast = 0; dctx.clearRect(0, 0, innerWidth, innerHeight); }
+  };
+  const shatter = el => {
+    const r = el.getBoundingClientRect(), cs = getComputedStyle(el), w = Math.ceil(r.width) + 8, h = Math.ceil(r.height) + 8;
+    const off = document.createElement('canvas'); off.width = w; off.height = h; const o = off.getContext('2d');
+    o.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`; o.textAlign = 'center'; o.textBaseline = 'middle';
+    if ('letterSpacing' in o) o.letterSpacing = cs.letterSpacing;
+    o.fillStyle = '#fff'; o.fillText(el.textContent, w / 2, h / 2 + parseFloat(cs.fontSize) * .04);
+    const px = o.getImageData(0, 0, w, h).data, step = 1.6;
+    for (let y = 0; y < h; y += step) for (let x = 0; x < w; x += step) {
+      const al = px[((y | 0) * w + (x | 0)) * 4 + 3]; if (al < 90) continue;
+      const fx = x / w;
+      const dx = x - w / 2, dy = y - h / 2;
+      parts.push({x: r.left - 4 + x, y: r.top - 4 + y, vx: 18 + Math.random() * 70 + dx * .25, vy: -(8 + Math.random() * 44) + dy * 1.1,
+        t: -(fx * .5 + Math.random() * .08), life: 1.1 + Math.random() * 1, s: .9 + Math.random() * .9, a: .55 + Math.random() * .4, gold: Math.random() < .22});
+    }
+    el.classList.add('go');
+    if (!dRaf) { dLast = 0; dRaf = requestAnimationFrame(dustFrame); }
+  };
+  const playWords = () => {
+    sizeDust();
+    timers.push(setTimeout(() => loader.classList.add('words'), 2300));
+    lwords.forEach((el, i) => {
+      const t0 = 2650 + i * 1250;
+      timers.push(setTimeout(() => el.classList.add('in'), t0));
+      timers.push(setTimeout(() => shatter(el), t0 + 700));
+    });
+    timers.push(setTimeout(open, 2650 + 2 * 1250 + 700 + 750));
+  };
+  loader.addEventListener('click', () => { timers.forEach(clearTimeout); open(); });
+  if (reduce || seen) { loader.style.transition = 'none'; open(); } else playWords();
 
   // Smooth scroll (desktop, motion allowed)
   let lenis = null;
@@ -953,7 +997,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
     const ec = Math.max(0, Math.min(1, (hp - .6) / .3));
     endcard.style.opacity = ec; endcard.style.transform = `scale(${.92 + ec * .08})`;
     cueEl.style.opacity = 1 - Math.min(1, hp * 2.2);
-    hpos.style.opacity = 1 - Math.min(1, hp * 2.6); hpos.style.transform = `translateY(${hp * -40}px)`;
+    hpos.style.opacity = 1 - Math.min(1, hp * 2.6);
     // statement words light up
     const r = stmt.getBoundingClientRect(), sp = Math.min(1, Math.max(0, (vh*.9 - r.top) / (vh*.75)));
     const lit = Math.round(sp * words.length);
