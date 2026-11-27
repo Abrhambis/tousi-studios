@@ -97,13 +97,16 @@ section{position:relative}
 /* Header */
 header{position:fixed;inset:0 0 auto;z-index:40;transition:transform .7s var(--ease),background .5s}
 header.hide{transform:translateY(-100%)}
-header.solid{background:linear-gradient(180deg,rgba(3,27,33,.85),rgba(3,27,33,0))}
+header.solid{background:rgba(3,27,33,.72);-webkit-backdrop-filter:blur(14px) saturate(1.1);backdrop-filter:blur(14px) saturate(1.1);box-shadow:0 1px 0 rgba(217,197,174,.1)}
 .bar{display:flex;align-items:center;justify-content:space-between;height:84px}
 .brand img{width:34px}
 nav.links{display:flex;gap:34px;align-items:center}
 nav.links a,.navbtn{font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--sand);text-decoration:none;position:relative;padding:12px 0}
 nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .6s var(--ease)}
-nav.links a:hover::after{transform:scaleX(1);transform-origin:left}
+nav.links a:hover::after,nav.links a.on::after{transform:scaleX(1);transform-origin:left}
+nav.links a{transition:color .5s}
+nav.links a.on{color:var(--ink)}
+.rail{display:none!important}
 .navbtn{background:none;border:0;cursor:pointer;display:none;align-items:center;gap:12px;min-height:44px}
 .navbtn i{display:block;width:26px;height:1px;background:currentColor;box-shadow:0 7px 0 currentColor;margin-top:-7px}
 .menu{position:fixed;inset:0;z-index:60;background:var(--deep);display:flex;flex-direction:column;justify-content:center;padding:0 max(7vw,24px);clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease);visibility:hidden}
@@ -124,6 +127,7 @@ nav.links a:hover::after{transform:scaleX(1);transform-origin:left}
 .hero .shade{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,rgba(3,27,33,0) 55%,rgba(3,27,33,.55)),linear-gradient(180deg,rgba(3,27,33,.4),rgba(3,27,33,0) 22%,rgba(3,27,33,0) 70%,rgba(3,27,33,.75));pointer-events:none}
 .lantern{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle var(--lr,420px) at var(--lx,50%) var(--ly,45%),rgba(3,27,33,0) 0%,rgba(3,27,33,.08) 45%,rgba(3,27,33,.42) 100%);transition:opacity 1.2s}
 .lantern::after{content:"";position:absolute;inset:0;background:radial-gradient(circle calc(var(--lr,420px)*.55) at var(--lx,50%) var(--ly,45%),rgba(217,197,174,.10),transparent 70%);mix-blend-mode:screen}
+.grain,.lantern{display:none!important}
 .grain{position:absolute;inset:-50%;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(6) infinite}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 .portal{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
@@ -155,7 +159,7 @@ nav.links a:hover::after{transform:scaleX(1);transform-origin:left}
 .offerrow.in .offer+.offer::before{transform:none}
 .offer::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(260px circle at var(--x,50%) var(--y,50%),rgba(217,197,174,.09),transparent 70%);opacity:0;transition:opacity .6s}
 .offer:hover::after{opacity:1}
-.offer .k{font:600 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.offer .k{font:400 italic 15.5px/1.3 var(--serif);letter-spacing:0;text-transform:none;color:var(--sand);margin-bottom:10px}
 .offer .t{font:400 clamp(21px,1.8vw,28px)/1.2 var(--serif);color:var(--ink);margin-bottom:14px;max-width:16ch}
 .offer .d{font-size:15.5px;line-height:1.6;color:var(--mute);max-width:34ch;margin-bottom:22px}
 .more2{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:none;border:0;padding:6px 0;min-height:44px;cursor:pointer;font:600 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sand)}
@@ -248,7 +252,7 @@ nav.links a:hover::after{transform:scaleX(1);transform-origin:left}
 .portrait img{width:100%;height:auto;transform:scale(1.12);transition:transform 2.4s var(--ease);filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
 .portrait.in{clip-path:inset(-10% -10% -10% -10%)}
 .portrait.in img{transform:none}
-.role{font:600 11.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:18px 0 30px}
+.role{font:400 italic clamp(17px,1.4vw,20px)/1.3 var(--serif);color:var(--sand);margin:16px 0 26px}
 .julia p{color:rgba(232,225,217,.82)}
 .pull{margin:34px 0 0;font:400 italic clamp(24px,2.3vw,32px)/1.3 var(--serif);color:var(--sand)}
 .career{margin-top:clamp(90px,12vh,150px);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(30px,5vw,80px)}
@@ -328,6 +332,9 @@ nav.links a:hover::after{transform:scaleX(1);transform-origin:left}
 footer{position:relative;padding:clamp(90px,14vh,140px) 0 36px;text-align:center}
 footer .mark{width:clamp(70px,8vw,110px);margin:0 auto 34px}
 footer .tag{font:400 italic clamp(22px,2.2vw,30px) var(--serif);color:var(--sand);margin:0 auto 54px}
+footer .fnav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px clamp(20px,3vw,40px);margin:0 auto clamp(48px,7vh,72px)}
+footer .fnav a{font:400 italic clamp(18px,1.5vw,22px) var(--serif);color:var(--sand);text-decoration:none;padding:6px 0;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .6s var(--ease),color .4s}
+footer .fnav a:hover,footer .fnav a:focus-visible{color:var(--ink);background-size:100% 1px}
 footer .legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:24px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mute);text-align:left}
 footer .legal span:last-child{display:flex;gap:18px}
 dialog{max-width:600px;width:calc(100% - 32px);background:var(--sea);color:var(--ink);border:1px solid var(--gold);padding:clamp(26px,4vw,44px)}
@@ -372,12 +379,15 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
 .dial .count{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-top:14px;overflow:hidden;height:52px}
 .dial .count b{display:block;font:400 36px/1.2 var(--serif)}
 .dial .count b.roll{animation:roll .9s var(--ease)}
-.dial .count small{font:600 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--sand)}
+.dial .count small{font:400 italic 16px var(--serif);color:var(--sand)}
 @keyframes roll{from{transform:translateY(70%);opacity:0}to{transform:none;opacity:1}}
 .ghost{position:absolute;left:50%;bottom:-8vh;font:400 52vh/1 var(--serif);color:transparent;-webkit-text-stroke:1px rgba(217,197,174,.07);pointer-events:none;user-select:none;z-index:0;transition:opacity .7s var(--ease),transform 1.2s var(--ease)}
 .ghost.swap{opacity:0;transform:translateY(6vh)}
+.ghost{display:none!important}
+@media(min-width:1101px){.dial .count{display:none}}
 .pin .wrap{position:relative;z-index:1}
-.chaps{position:relative;min-height:480px}
+.chapcol{min-width:0}
+.chaps{position:relative;min-height:440px}
 .idx{list-style:none;margin:0;padding:0 0 0 22px;position:relative;align-self:center}
 .idx::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--line)}
 .idx .bar{position:absolute;left:0;top:6px;width:1px;height:calc(100% - 12px);background:var(--sand);transform-origin:top;transform:scaleY(0)}
@@ -389,17 +399,17 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
 .idx .n{display:block;font:400 italic 15px var(--serif);color:var(--sand)}
 .idx .t{display:block;font:500 13.5px/1.35 var(--sans);margin-top:2px}
 @media(max-width:1100px){.pin .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,48px)}.idx{display:none}.dial{width:min(400px,40vw,56vh)}}
-.chap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.2s var(--ease);pointer-events:none}
+.chap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.2s var(--ease);pointer-events:none}
 .chap.on{opacity:1;transform:none;pointer-events:auto}
 .chap>*{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
 .chap.on>*{opacity:1;transform:none}
-.chap.on>.kick{transition-delay:.05s}.chap.on>h3{transition-delay:.15s}.chap.on>p:nth-of-type(2){transition-delay:.3s}.chap.on>.help{transition-delay:.48s}
+.chap.on>h3{transition-delay:.15s}.chap.on>p:nth-of-type(2){transition-delay:.3s}.chap.on>.help{transition-delay:.48s}
 .help{margin-top:26px;padding-top:18px;border-top:1px solid rgba(184,146,90,.45);max-width:44ch;position:relative}
-.help .hk{display:block;font:600 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.help .hk{display:block;font:400 italic 15.5px/1.3 var(--serif);letter-spacing:0;text-transform:none;color:var(--sand);margin-bottom:4px}
 .help .ht{display:block;font:400 clamp(20px,1.7vw,26px)/1.2 var(--serif);color:var(--ink);margin-bottom:6px}
 .help .hd{display:block;font-size:15px;line-height:1.55;color:var(--mute)}
 .chap.past{opacity:0;transform:translateY(-40px)}
-.chap .kick{font:600 12.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.chapkick{font:400 italic clamp(17px,1.4vw,20px)/1.3 var(--serif);color:var(--sand);margin:0 0 18px}
 .chap h3{font-size:clamp(30px,3.2vw,52px);line-height:1.06;max-width:14ch;margin-bottom:18px}
 .chap>p{font-size:clamp(16px,1.2vw,18.5px);line-height:1.6;color:rgba(232,225,217,.75);max-width:44ch}
 
@@ -478,7 +488,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
 <nav class="rail" id="rail" aria-label="Sections"></nav>
 <div class="menu" id="menu" role="dialog" aria-label="Menu">
   <button class="navbtn close" id="closeMenu" type="button" style="display:inline-flex">Close</button>
-  <a href="#intro"><span>What we do</span></a><a href="#why"><span>When to call</span></a><a href="#approach"><span>Approach</span></a><a href="#story"><span>Story</span></a><a href="#julia"><span>Julia</span></a><a href="#begin"><span>Begin</span></a>
+  <a href="#intro"><span>What we do</span></a><a href="#why"><span>When to call</span></a><a href="#approach"><span>Approach</span></a><a href="#story"><span>Story</span></a><a href="#julia"><span>Julia</span></a><a href="#begin"><span>Let's connect</span></a>
 </div>
 
 <main id="main">
@@ -618,12 +628,12 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
         </svg>
         <div class="count"><b id="dialNum">1</b><small>of 4</small></div>
       </div>
-      <div class="chaps" id="chaps">
-        <article class="chap on"><p class="kick">When to call</p><h3>Growth has outpaced the way you operate.</h3><p>Your current way of operating can no longer sustain your trajectory. Cadences, reporting and decisions start to strain.</p><div class="help"><span class="hk">How we help</span><span class="ht">Build the operating system</span><span class="hd">Robust systems that sustain rapid growth: the infrastructure, cadences and practices to move fast without breaking.</span></div></article>
-        <article class="chap"><p class="kick">When to call</p><h3>A high-friction event is ahead.</h3><p>A corporate restructure, a strategic pivot, M&amp;A or capital readiness: the moments when execution risk is highest.</p><div class="help"><span class="hk">How we help</span><span class="ht">Navigate complex transactions</span><span class="hd">Tactical operators who de-risk restructures, strategic pivots, and M&amp;A or capital readiness.</span></div></article>
-        <article class="chap"><p class="kick">When to call</p><h3>An investment needs an operator's eye.</h3><p>Before your investment committee commits, or when a portfolio company needs interim leadership to steady the course.</p><div class="help"><span class="hk">How we help</span><span class="ht">IC diligence and PortCo leadership</span><span class="hd">An operator's eye before the committee commits, and interim leadership after.</span></div></article>
-        <article class="chap"><p class="kick">When to call</p><h3>Leadership needs to move faster, and compliantly.</h3><p>Your leaders and board need structures for rapid, compliant and clear execution as the organization changes around them.</p><div class="help"><span class="hk">How we help</span><span class="ht">Executive conditioning and board advisory</span><span class="hd">Structures for rapid, compliant and clear leadership execution, from a sitting board director.</span></div></article>
-      </div>
+      <div class="chapcol"><p class="chapkick">When to call</p><div class="chaps" id="chaps">
+        <article class="chap on"><h3>Growth has outpaced the way you operate.</h3><p>Your current way of operating can no longer sustain your trajectory. Cadences, reporting and decisions start to strain.</p><div class="help"><span class="hk">How we help</span><span class="ht">Build the operating system</span><span class="hd">Robust systems that sustain rapid growth: the infrastructure, cadences and practices to move fast without breaking.</span></div></article>
+        <article class="chap"><h3>A high-friction event is ahead.</h3><p>A corporate restructure, a strategic pivot, M&amp;A or capital readiness: the moments when execution risk is highest.</p><div class="help"><span class="hk">How we help</span><span class="ht">Navigate complex transactions</span><span class="hd">Tactical operators who de-risk restructures, strategic pivots, and M&amp;A or capital readiness.</span></div></article>
+        <article class="chap"><h3>An investment needs an operator's eye.</h3><p>Before your investment committee commits, or when a portfolio company needs interim leadership to steady the course.</p><div class="help"><span class="hk">How we help</span><span class="ht">IC diligence and PortCo leadership</span><span class="hd">An operator's eye before the committee commits, and interim leadership after.</span></div></article>
+        <article class="chap"><h3>Leadership needs to move faster, and compliantly.</h3><p>Your leaders and board need structures for rapid, compliant and clear execution as the organization changes around them.</p><div class="help"><span class="hk">How we help</span><span class="ht">Executive conditioning and board advisory</span><span class="hd">Structures for rapid, compliant and clear leadership execution, from a sitting board director.</span></div></article>
+      </div></div>
       <ol class="idx" id="idx" aria-label="Steps"><span class="bar" id="idxBar"></span>
         <li class="on"><button type="button" data-i="0"><span class="n">1</span><span class="t">Growth outpaces operations</span></button></li>
         <li><button type="button" data-i="1"><span class="n">2</span><span class="t">High-friction events</span></button></li>
@@ -689,10 +699,9 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
       <div>
         <h2 class="split">Julia Roy</h2>
         <p class="role fade">Founder, Tousi Studios Inc.</p>
-        <ul class="tags fade"><li>Fractional COO</li><li>IC due diligence</li><li>PortCo interim leadership</li><li>Next-gen wealth governance</li><li>Angel investor</li><li>Board director</li></ul>
+        <ul class="tags fade"><li>Fractional COO</li><li>Board director</li><li>Angel investor</li></ul>
         <p class="fade">An operations executive who pairs startup agility with institutional rigour. Julia has sat on both sides of the table: at OMERS Ventures, and inside the high-growth companies funds back, including as COO of QoC Health through its acquisition.</p>
         <p class="fade">Because the value of data, healthcare and innovation is inherently global, she is a passionate world traveller, at the forefront of international trends and shifting cross-border regulation. Her network of executive leaders, founders, clinicians, investors and policymakers brings top-tier global tactics directly to the work.</p>
-        <p class="pull fade">“You will exceed even your own expectations.”</p>
       </div>
     </div>
     <div class="proof" id="proof">
@@ -743,6 +752,7 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
 <footer>
   <div class="wrap">
     <img class="mark fade" src="assets/monogram.png" alt="Tousi Studios">
+    <nav class="fnav" aria-label="Footer"><a href="#intro">What we do</a><a href="#why">When to call</a><a href="#approach">Approach</a><a href="#story">Story</a><a href="#julia">Julia</a><a href="#begin">Let's connect</a></nav>
     <div class="legal">
       <span>© 2023–2026 Tousi Studios Inc. Tousi Studios does not provide legal, tax or investment advice.</span>
       <span><button type="button" class="linkbtn" id="privOpen2">Privacy</button><button type="button" class="linkbtn" id="motionBtn" aria-pressed="false">Pause motion</button></span>
@@ -897,8 +907,6 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   const tick = (force) => {
     const y = scrollY, vh = innerHeight;
     hdr.classList.toggle('solid', y > 60);
-    if (!menu.classList.contains('open')) hdr.classList.toggle('hide', y > heroEl.offsetHeight - vh*.1 && y > lastY + 2);
-    if (y < lastY - 2) hdr.classList.remove('hide');
     lastY = y;
     if (reduce) return;
     // hero film eases back as you leave
@@ -1077,8 +1085,9 @@ dialog .close2{margin-top:10px;background:none;border:1px solid var(--sand);colo
   const railSecs = [['intro','What we do'],['why','When to call'],['approach','Approach'],['story','Story'],['julia','Julia'],['begin','Begin']];
   const rail = document.getElementById('rail');
   rail.innerHTML = railSecs.map(([id,l]) => `<a href="#${id}" data-id="${id}"><span>${l}</span><i></i></a>`).join('');
-  const rio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) rail.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.dataset.id === e.target.id)); }), {rootMargin:'-45% 0px -50% 0px'});
+  const rio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { rail.querySelectorAll('a').forEach(a => a.classList.toggle('on', a.dataset.id === e.target.id)); document.querySelectorAll('nav.links a').forEach(a => { const on = a.getAttribute('href') === '#' + e.target.id; a.classList.toggle('on', on); on ? a.setAttribute('aria-current', 'location') : a.removeAttribute('aria-current'); }); } }), {rootMargin:'-45% 0px -50% 0px'});
   railSecs.forEach(([id]) => rio.observe(document.getElementById(id)));
+  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) document.querySelectorAll('nav.links a').forEach(a => { a.classList.remove('on'); a.removeAttribute('aria-current'); }); }), {rootMargin:'-45% 0px -50% 0px'}).observe(document.getElementById('top'));
 
   // Proof count-up
   const pio = new IntersectionObserver(es => es.forEach(e => {
